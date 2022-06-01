@@ -1,11 +1,18 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+// import 'semantic-ui-css/semantic.min.css';
 import './App.css';
-
-function App() {
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+const App = () => {
   return (
-    <div className="App">
-     <h1>Hello</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/register" element={<Register />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
-
+};
 export default App;
