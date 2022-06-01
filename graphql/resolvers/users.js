@@ -35,6 +35,7 @@ module.exports = {
         throw new UserInputError('Invalid credentials', { errors });
       }
       const token = generateToken(user);
+      console.log(user)
       return {
         ...user._doc,
         id: user._id,
@@ -65,7 +66,7 @@ module.exports = {
         email,
         username,
         password,
-        createdAt: new Date().toISOString
+        createdAt: new Date().toISOString()
       });
       const res = await newUser.save()
       const token = generateToken(res)
