@@ -9,7 +9,7 @@ import { useForm } from '../utils/hooks';
 function Login(props) {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-  const { onChange, onSubmit, values} = useForm(loginUserCallback, {
+  const { onChange, onSubmit, values } = useForm(loginUserCallback, {
     username: '',
     password: '',
   });
@@ -20,8 +20,8 @@ function Login(props) {
     onError(err) {
       setErrors(err.graphQLErrors[0].extensions.errors);
     },
-    variables: values
-  })
+    variables: values,
+  });
   function loginUserCallback() {
     loginUser();
   }
@@ -30,19 +30,19 @@ function Login(props) {
       <Form onSubmit={onSubmit} noValidate className={loading ? 'loading' : ''}>
         <h1>Login</h1>
         <Form.Input
-          label='Username' 
-          placeholder='Username' 
+          label='Username'
+          placeholder='Username'
           type='text'
-          name='username' 
+          name='username'
           value={values.username}
           error={errors.username ? true : false}
           onChange={onChange}
         />
         <Form.Input
-          label='Password' 
+          label='Password'
           placeholder='Password'
           type='password'
-          name='password' 
+          name='password'
           value={values.password}
           error={errors.password ? true : false}
           onChange={onChange}
@@ -52,8 +52,8 @@ function Login(props) {
         </Button>
       </Form>
       {Object.keys(errors).length > 0 && (
-        <div className="ui error message">
-          <ul className="list">
+        <div className='ui error message'>
+          <ul className='list'>
             {Object.values(errors).map((value) => (
               <li key={value}>{value}</li>
             ))}
@@ -61,18 +61,12 @@ function Login(props) {
         </div>
       )}
     </div>
-  )
+  );
 }
 
 const LOGIN_USER = gql`
-  mutation login(
-    $username: String!
-    $password: String!
-  ) {
-    login(
-        username: $username
-        password: $password
-    ) {
+  mutation login($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
       id
       email
       username

@@ -1,42 +1,43 @@
 module.exports.validateRegisterInput = (
   username,
-  email, 
+  email,
   password,
   confirmPassword
 ) => {
   const errors = {};
-  if(username.trim() === '') {
-    errors.username = 'Username is required'
+  if (username.trim() === '') {
+    errors.username = 'Username is required';
   }
-  if(email.trim() === '') {
-    errors.email = 'Email is required'
+  if (email.trim() === '') {
+    errors.email = 'Email is required';
   } else {
-    const regEx= /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
-    if(!email.match(regEx)) {
+    const regEx =
+      /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
+    if (!email.match(regEx)) {
       errors.email = 'Enter a valid email address';
     }
   }
-  if(password === '') {
+  if (password === '') {
     errors.password = 'Password is required';
-  } else if(password !== confirmPassword) {
+  } else if (password !== confirmPassword) {
     errors.confirmPassword = 'Password and confirm password must be matched';
   }
   return {
     errors,
-    valid: Object.keys(errors).length < 1
-  }
-}
+    valid: Object.keys(errors).length < 1,
+  };
+};
 
 module.exports.validateLoginInput = (username, password) => {
   const errors = {};
-  if(username.trim() === '') {
-    errors.username = 'Username is required'
+  if (username.trim() === '') {
+    errors.username = 'Username is required';
   }
-  if(password === '') {
+  if (password === '') {
     errors.password = 'Password is required';
   }
   return {
     errors,
-    valid: Object.keys(errors).length < 1
-  }
-}
+    valid: Object.keys(errors).length < 1,
+  };
+};
