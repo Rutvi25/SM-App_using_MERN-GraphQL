@@ -10,7 +10,7 @@ import { login } from '../redux/authSlice';
 
 function Login(props) {
   const [errors, setErrors] = useState({});
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { onChange, onSubmit, values } = useForm(loginUserCallback, {
     username: '',
@@ -19,8 +19,9 @@ function Login(props) {
   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
     update(_, result) {
       navigate('/');
-      console.log(result.data)
+      console.log(result.data);
       dispatch(login(result.data.login));
+      localStorage.setItem('jwtToken', result.data.login.token);
     },
     onError(err) {
       setErrors(err.graphQLErrors[0].extensions.errors);

@@ -9,7 +9,7 @@ import {
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import { persistor, store} from './redux/store';
+import { persistor, store } from './redux/store';
 
 const httpLink = new HttpLink({
   uri: 'http://localhost:5000',
