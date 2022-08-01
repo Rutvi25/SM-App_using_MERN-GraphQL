@@ -6,7 +6,10 @@ import {
   InMemoryCache,
   ApolloProvider,
 } from '@apollo/client';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+
+import { persistor, store} from './redux/store';
 
 const httpLink = new HttpLink({
   uri: 'http://localhost:5000',
@@ -19,9 +22,11 @@ const client = new ApolloClient({
 });
 
 export default (
-  <Provider>
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
+    </PersistGate>
   </Provider>
 );

@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form } from 'semantic-ui-react';
 import { useMutation } from '@apollo/react-hooks';
+import { useDispatch } from 'react-redux';
 import gql from 'graphql-tag';
 
 import { useForm } from '../utils/hooks';
+import { login } from '../redux/authSlice';
 
 function Register(props) {
   const [errors, setErrors] = useState({});
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { onChange, onSubmit, values } = useForm(registerUser, {
     username: '',
@@ -18,6 +21,8 @@ function Register(props) {
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
     update(_, result) {
       navigate('/');
+      console.log(result.data)
+      dispatch(login(result.data.register));
     },
     onError(err) {
       setErrors(err.graphQLErrors[0].extensions.errors);
