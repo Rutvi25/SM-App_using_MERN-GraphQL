@@ -7,9 +7,10 @@ import { useSelector } from 'react-redux';
 
 import LikeButton from '../components/LikeButton';
 import DeleteButton from '../components/DeleteButton';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function SinglePost({ props }) {
+  const navigate = useNavigate() 
   const user = useSelector((state) => state.user);
   const { postId } = useParams();
   console.log(postId);
@@ -19,7 +20,7 @@ function SinglePost({ props }) {
     },
   });
   function deletePostCallback() {
-    props.history.push('/');
+    navigate('/');
   }
   let postMarkup;
   if (!getPost) {
