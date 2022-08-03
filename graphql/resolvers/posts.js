@@ -13,9 +13,9 @@ module.exports = {
         throw new Error(err);
       }
     },
-    async getPost(_, { PostId }) {
+    async getPost(_, { postId }) {
       try {
-        const post = await Post.findById(PostId);
+        const post = await Post.findById(postId);
         if (post) {
           return post;
         } else {
@@ -45,10 +45,10 @@ module.exports = {
       });
       return post;
     },
-    async deletePost(_, { PostId }, context) {
+    async deletePost(_, { postId }, context) {
       const user = checkAuth(context);
       try {
-        const post = await Post.findById(PostId);
+        const post = await Post.findById(postId);
         if (user.username === post.username) {
           await post.delete();
           return 'Post deleted';
@@ -59,9 +59,9 @@ module.exports = {
         throw new Error(err);
       }
     },
-    async likePost(_, { PostId }, context) {
+    async likePost(_, { postId }, context) {
       const { username } = checkAuth(context);
-      const post = await Post.findById(PostId);
+      const post = await Post.findById(postId);
       if (post) {
         if (post.likes.find((like) => like.username === username)) {
           post.likes = post.likes.filter((like) => like.username !== username);
