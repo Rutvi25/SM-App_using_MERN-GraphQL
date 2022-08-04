@@ -21,8 +21,9 @@ function Register(props) {
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
     update(_, result) {
       navigate('/');
-      console.log(result.data)
+      console.log(result.data);
       dispatch(login(result.data.register));
+      localStorage.setItem('jwtToken', result.data.register.token);
     },
     onError(err) {
       setErrors(err.graphQLErrors[0].extensions.errors);
