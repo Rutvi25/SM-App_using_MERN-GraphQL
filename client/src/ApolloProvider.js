@@ -1,5 +1,4 @@
 import React from 'react';
-import App from './App';
 import {
   HttpLink,
   ApolloClient,
@@ -10,6 +9,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { setContext } from 'apollo-link-context';
 
+import App from './App';
 import { persistor, store } from './redux/store';
 
 const httpLink = new HttpLink({
@@ -17,13 +17,13 @@ const httpLink = new HttpLink({
   credentials: 'same-origin',
 });
 const authLink = setContext(() => {
-  const token = localStorage.getItem('jwtToken') 
+  const token = localStorage.getItem('jwtToken');
   return {
     headers: {
-      Authorization: token ? `Bearer ${token}` : ''
-    }
-  }
-})
+      Authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
